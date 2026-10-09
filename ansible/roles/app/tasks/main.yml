@@ -1,0 +1,15 @@
+- name: Run app 
+  docker_container:
+    name: backend
+    image: raphaelaurent/backend
+    env:
+      DB_HOST: database
+      DB_USER: "{{ db_user }}"
+      DB_PASSWORD: "{{ db_password }}"
+      DB_NAME: "{{ db_name }}"
+    networks:
+      - name: myNetwork
+    ports:
+      - "8080:80"
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python

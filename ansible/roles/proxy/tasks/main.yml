@@ -1,0 +1,10 @@
+- name : Run proxy
+  docker_container:
+    name: myProxy
+    image: raphaelaurent/httpd
+    networks:
+      - name: myNetwork
+    ports:
+      - "80:80"
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python

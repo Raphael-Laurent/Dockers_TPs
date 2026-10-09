@@ -1,0 +1,14 @@
+- name: Run database 
+  docker_container:
+    name: database
+    image: postgres:15
+    env:
+      POSTGRES_USER: "{{ db_user }}"
+      POSTGRES_PASSWORD: "{{ db_password }}"
+      POSTGRES_DB: "{{ db_name }}"
+    networks: 
+      - name: myNetwork
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python

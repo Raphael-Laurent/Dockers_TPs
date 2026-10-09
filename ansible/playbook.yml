@@ -1,6 +1,10 @@
 - hosts: all
   gather_facts: true
   become: true
+  vars:
+    db_user: usr
+    db_password: pwd
+    db_name: db
 
   roles:
     - docker #calling the role docker

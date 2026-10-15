@@ -39,6 +39,11 @@ docker compose up --build -d
 
 # Questions
 
+## TP2 :
+### 2-1 What are testcontainers ?
+Testcontainers is a library that gives acess to disposable docker containers to run services.
+
+## TP3 :
 ### 3-1 Document your inventory and base commands
 
 Inventory :

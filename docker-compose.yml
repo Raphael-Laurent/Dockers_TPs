@@ -9,9 +9,9 @@ services:
     database:
         build: ./Database
         environment: 
-          POSTGRES_USER: usr
-          POSTGRES_DB: db
-          POSTGRES_PASSWORD: pwd
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_DB: ${POSTGRES_DB}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         networks:
         - app-network
         volumes:

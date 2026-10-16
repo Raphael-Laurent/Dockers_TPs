@@ -34,14 +34,19 @@ docker compose up --build -d
 ```
 
 
-
-
-
 # Questions
 
 ## TP2 :
 ### 2-1 What are testcontainers ?
 Testcontainers is a library that gives acess to disposable docker containers to run services.
+
+### 2-2 For what purpose do we need to use secured variables ?
+The secured variables are used to registered encrypted sensible information. For example, we can use them to register identifiers, and avoid putting them in the source code.
+
+### 2-3 Why did we put needs: build-and-test-backend on this job ?
+This line assures that the job build-and-push-docker-image only run if the job test-backend is successfull. This insure that the image published is not bugged.
+
+## 2-4 For what purpose do we need to push docker images ?
 
 ## TP3 :
 ### 3-1 Document your inventory and base commands

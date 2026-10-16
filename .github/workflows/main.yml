@@ -5,6 +5,7 @@ on:
     branches:
     - main # use main branch
   pull_request:
+  #docker login -u raphaelaurent
 
 jobs:
   test-backend: 
@@ -23,3 +24,43 @@ jobs:
      # Build and test with Maven
       - name: Build and test with Maven
         run: mvn clean verify --file Backend/pom.xml
+
+  # define job to build and publish docker image
+  build-and-push-docker-image:
+    needs: test-backend
+    # run only when code is compiling and tests are passing
+    runs-on: ubuntu-24.04
+
+    # steps to perform in job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+
+      - name: Build image and push backend
+        uses: docker/build-push-action@v6
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./Backend
+          # Note: tags has to be all lower-case
+          tags:  ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-simple-api:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push database
+          # DO the same for database
+        uses: docker/build-push-action@v6
+        with:
+            context: ./Database
+            tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-database:latest
+            push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push httpd
+        # DO the same for httpd
+        uses: docker/build-push-action@v6
+        with:
+          context: ./Httpd
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-httpd:latest
+          push: ${{ github.ref == 'refs/heads/main' }}

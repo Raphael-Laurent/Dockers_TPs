@@ -61,6 +61,6 @@ jobs:
         # DO the same for httpd
         uses: docker/build-push-action@v6
         with:
-          context: ./Httpd
+          context: ./HTTP_server
           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-httpd:latest
           push: ${{ github.ref == 'refs/heads/main' }}
